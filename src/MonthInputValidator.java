@@ -6,17 +6,18 @@ public class MonthInputValidator {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Введите номер месяца (1-12): ");
-            if (scanner.hasNextInt()) {
-                int month = scanner.nextInt();
-                if (month >= 1 && month <= 12) {
-                    System.out.println("Месяц: " + months[month - 1]);
-                    break;
-                } else {
-                    System.out.println("Число должно быть от 1 до 12.");
-                }
-            } else {
+            String input = scanner.nextLine().trim();
+
+            try {
+                int month = Integer.parseInt(input);
+                String monthName = months[month - 1];
+                System.out.println("Месяц: " + monthName);
+                break;
+
+            } catch (NumberFormatException e) {
                 System.out.println("Ошибка: введите целое число!");
-                scanner.next();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Ошибка: число должно быть от 1 до 12.");
             }
         }
         scanner.close();
